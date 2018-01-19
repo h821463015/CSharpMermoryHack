@@ -37,122 +37,131 @@ namespace WindowHack
         public extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
         #endregion
 
-        //得到目标进程句柄的函数
+        #region 得到目标进程句柄的函数
+        /// <summary>
+        /// 得到目标进程句柄的函数
+        /// </summary>
+        /// <param name="hwnd"></param>
+        /// <param name="lpdwProcessId"></param>
+        /// <returns></returns>
         [DllImport("USER32.DLL")]
-        public extern static int GetWindowThreadProcessId(
-            int hwnd,
-            ref int lpdwProcessId
-            );
+        public extern static int GetWindowThreadProcessId(int hwnd, ref int lpdwProcessId);
         [DllImport("USER32.DLL")]
-        public extern static int GetWindowThreadProcessId(
-            IntPtr hwnd,
-            ref int lpdwProcessId
-            );
+        public extern static int GetWindowThreadProcessId(IntPtr hwnd, ref int lpdwProcessId); 
+        #endregion
 
-        //打开进程
+        #region 打开进程
+        /// <summary>
+        /// 打开进程
+        /// </summary>
+        /// <param name="dwDesiredAccess"></param>
+        /// <param name="bInheritHandle"></param>
+        /// <param name="dwProcessId"></param>
+        /// <returns></returns>
         [DllImport("kernel32.dll")]
-        public extern static int OpenProcess(
-            int dwDesiredAccess,
-            int bInheritHandle,
-            int dwProcessId
-            );
+        public extern static int OpenProcess(int dwDesiredAccess, int bInheritHandle, int dwProcessId);
         [DllImport("kernel32.dll")]
-        public extern static IntPtr OpenProcess(
-            uint dwDesiredAccess,
-            int bInheritHandle,
-            uint dwProcessId
-            );
+        public extern static IntPtr OpenProcess(uint dwDesiredAccess, int bInheritHandle, uint dwProcessId); 
+        #endregion
 
-        //关闭句柄的函数
+        #region 关闭句柄的函数
+        /// <summary>
+        /// 关闭句柄的函数
+        /// </summary>
+        /// <param name="hObject"></param>
+        /// <returns></returns>
         [DllImport("kernel32.dll", EntryPoint = "CloseHandle")]
-        public static extern int CloseHandle(
-            int hObject
-            );
+        public static extern int CloseHandle(int hObject); 
+        #endregion
 
-        //读内存
+        #region 读内存
+        /// <summary>
+        /// 读内存
+        /// </summary>
+        /// <param name="hProcess"></param>
+        /// <param name="lpBaseAddress"></param>
+        /// <param name="buffer"></param>
+        /// <param name="size"></param>
+        /// <param name="lpNumberOfBytesWritten"></param>
+        /// <returns></returns>
         [DllImport("Kernel32.dll ")]
-        public static extern Int32 ReadProcessMemory(
-            IntPtr hProcess,
-            IntPtr lpBaseAddress,
-            [In, Out] byte[] buffer,
-            int size,
-            out IntPtr lpNumberOfBytesWritten
-            );
+        public static extern Int32 ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [In, Out] byte[] buffer, int size, out IntPtr lpNumberOfBytesWritten);
         [DllImport("Kernel32.dll ")]
-        public static extern Int32 ReadProcessMemory(
-            int hProcess,
-            int lpBaseAddress,
-            ref int buffer,
-            //byte[] buffer,
-            int size,
-            int lpNumberOfBytesWritten
-            );
+        public static extern Int32 ReadProcessMemory(int hProcess, int lpBaseAddress, ref int buffer,/*byte[] buffer,*/int size, int lpNumberOfBytesWritten);
+        /// <summary>
+        /// 读内存
+        /// </summary>
+        /// <param name="hProcess">进程</param>
+        /// <param name="lpBaseAddress">要读取的内存地址</param>
+        /// <param name="buffer">从上面那个参数地址里读出来的东西(调用这个函数的就是为了它) </param>
+        /// <param name="size">长度，上一个参数，类型是int，那个长度应该用4</param>
+        /// <param name="lpNumberOfBytesWritten">用0就行了</param>
+        /// <returns></returns>
         [DllImport("Kernel32.dll ")]
-        public static extern Int32 ReadProcessMemory(
-            int hProcess,
-            int lpBaseAddress,
-            byte[] buffer,
-            int size,
-            int lpNumberOfBytesWritten
-            );
+        public static extern Int32 ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] buffer, int size, int lpNumberOfBytesWritten); 
+        #endregion
 
-        //写内存
+        #region 写内存
+        /// <summary>
+        /// 写内存
+        /// </summary>
+        /// <param name="hProcess"></param>
+        /// <param name="lpBaseAddress"></param>
+        /// <param name="buffer"></param>
+        /// <param name="size"></param>
+        /// <param name="lpNumberOfBytesWritten"></param>
+        /// <returns></returns>
         [DllImport("kernel32.dll")]
-        public static extern Int32 WriteProcessMemory(
-            IntPtr hProcess,
-            IntPtr lpBaseAddress,
-            [In, Out] byte[] buffer,
-            int size,
-            out IntPtr lpNumberOfBytesWritten
-            );
+        public static extern Int32 WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [In, Out] byte[] buffer, int size, out IntPtr lpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll")]
-        public static extern Int32 WriteProcessMemory(
-            int hProcess,
-            int lpBaseAddress,
-            byte[] buffer,
-            int size,
-            int lpNumberOfBytesWritten
-            );
+        public static extern Int32 WriteProcessMemory(int hProcess, int lpBaseAddress, byte[] buffer, int size, int lpNumberOfBytesWritten); 
+        #endregion
 
-        //创建线程
+        #region 创建线程
+        /// <summary>
+        /// 创建线程
+        /// </summary>
+        /// <param name="hProcess"></param>
+        /// <param name="lpThreadAttributes"></param>
+        /// <param name="dwStackSize"></param>
+        /// <param name="lpStartAddress"></param>
+        /// <param name="lpParameter"></param>
+        /// <param name="dwCreationFlags"></param>
+        /// <param name="lpThreadId"></param>
+        /// <returns></returns>
         [DllImport("kernel32", EntryPoint = "CreateRemoteThread")]
-        public static extern int CreateRemoteThread(
-            int hProcess,
-            int lpThreadAttributes,
-            int dwStackSize,
-            int lpStartAddress,
-            int lpParameter,
-            int dwCreationFlags,
-            ref int lpThreadId
-            );
+        public static extern int CreateRemoteThread(int hProcess, int lpThreadAttributes, int dwStackSize, int lpStartAddress, int lpParameter, int dwCreationFlags, ref int lpThreadId); 
+        #endregion
 
-        //开辟指定进程的内存空间
+        #region 开辟指定进程的内存空间
+        /// <summary>
+        /// 开辟指定进程的内存空间
+        /// </summary>
+        /// <param name="hProcess"></param>
+        /// <param name="lpAddress"></param>
+        /// <param name="dwSize"></param>
+        /// <param name="flAllocationType"></param>
+        /// <param name="flProtect"></param>
+        /// <returns></returns>
         [DllImport("Kernel32.dll")]
-        public static extern System.Int32 VirtualAllocEx(
-         System.IntPtr hProcess,
-         System.Int32 lpAddress,
-         System.Int32 dwSize,
-         System.Int16 flAllocationType,
-         System.Int16 flProtect
-         );
+        public static extern System.Int32 VirtualAllocEx(System.IntPtr hProcess, System.Int32 lpAddress, System.Int32 dwSize, System.Int16 flAllocationType, System.Int16 flProtect);
 
         [DllImport("Kernel32.dll")]
-        public static extern System.Int32 VirtualAllocEx(
-        int hProcess,
-        int lpAddress,
-        int dwSize,
-        int flAllocationType,
-        int flProtect
-        );
+        public static extern System.Int32 VirtualAllocEx(int hProcess, int lpAddress, int dwSize, int flAllocationType, int flProtect); 
+        #endregion
 
-        //释放内存空间
+        #region 释放内存空间
+        /// <summary>
+        /// 释放内存空间
+        /// </summary>
+        /// <param name="hProcess"></param>
+        /// <param name="lpAddress"></param>
+        /// <param name="dwSize"></param>
+        /// <param name="flAllocationType"></param>
+        /// <returns></returns>
         [DllImport("Kernel32.dll")]
-        public static extern System.Int32 VirtualFreeEx(
-        int hProcess,
-        int lpAddress,
-        int dwSize,
-        int flAllocationType
-        );
+        public static extern System.Int32 VirtualFreeEx(int hProcess, int lpAddress, int dwSize, int flAllocationType); 
+        #endregion
     }
 }
