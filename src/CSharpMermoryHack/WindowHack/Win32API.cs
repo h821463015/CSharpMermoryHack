@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowHack
 {
-    public class Win32Api
+    class Win32Api
     {
         public const int OPEN_PROCESS_ALL = 2035711;
         public const int PAGE_READWRITE = 4;
@@ -26,12 +26,16 @@ namespace WindowHack
 
 
 
-        //查找窗体
+        #region 查找窗体
+        /// <summary>
+        /// 查找窗体
+        /// </summary>
+        /// <param name="lpClassName"></param>
+        /// <param name="lpWindowName"></param>
+        /// <returns></returns>
         [DllImport("User32.dll", EntryPoint = "FindWindow")]
-        public extern static IntPtr FindWindow(
-            string lpClassName,
-            string lpWindowName
-            );
+        public extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
+        #endregion
 
         //得到目标进程句柄的函数
         [DllImport("USER32.DLL")]
